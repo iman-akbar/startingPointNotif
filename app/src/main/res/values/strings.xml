@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">notif1</string>
+    <string name="service_label" />
+    <string name="service_name" />
 </resources>
