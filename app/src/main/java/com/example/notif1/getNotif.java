@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -37,39 +38,75 @@ public class getNotif extends NotificationListenerService {
         Log.i("berhasil","yes");
         Log.i("berhasil",name);
         Log.i("berhasil",job);
-        String url = "http://54.251.227.51:5000/aiTest/";
+//        String url = "http://54.251.227.51:5000/aiTest/";
+//        RequestQueue queue = Volley.newRequestQueue(getNotif.this);
+//        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+//                new Response.Listener<String>()
+//                {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//                        Log.d("dapat response", response);
+//                    }
+//                },
+//                new Response.ErrorListener()
+//                {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//
+//                        String response = null;
+//                        Log.d("Error.Response", response);
+//                    }
+//                }
+//        ) {
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                Map<String, String>  params = new HashMap<String, String>();
+////                params.put("sender", "Alif");
+////                params.put("message", "http://itsalif.info");
+//
+//                return params;
+//            }
+//        };
+////        ArraySet<StringRequest> queue = null;
+//        queue.add(postRequest);
+
+
+        final String url = " http://54.251.227.51:5000/aiTest/";
+
         RequestQueue queue = Volley.newRequestQueue(getNotif.this);
-        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>()
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>()
                 {
                     @Override
-                    public void onResponse(String response) {
-
-                        Log.d("dapat response", response);
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        Log.i("berhasil", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
-                        String response = null;
-                        Log.d("Error.Response", response);
+//                        Log.d("Error.Response", response);
                     }
                 }
-        ) {
+        ){
             @Override
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-//                params.put("sender", "Alif");
-//                params.put("message", "http://itsalif.info");
+                params.put("sender", "done");
+                params.put("message", "yup");
 
                 return params;
             }
         };
-//        ArraySet<StringRequest> queue = null;
-        queue.add(postRequest);
+
+// add it to the RequestQueue
+
+        queue.add(getRequest);
     }
 
 }
