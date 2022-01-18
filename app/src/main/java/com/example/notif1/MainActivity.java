@@ -58,10 +58,15 @@ public class MainActivity extends AppCompatActivity {
 //            Log.i("error_message", e.getMessage());
 //        }
 
-        final String url = " http://54.251.250.157:5000/";
+        final String url = " http://54.251.227.51:5000/v1/mc/predict";
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("content_id", "c6eEXZ");
+        params.put("download_from", "S3");
+        params.put("lang", "BAHASA");
+        params.put("metaDataPath", ".txt");
 
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest getRequest = new JsonObjectRequest(url, new JSONObject(params),
                 new Response.Listener<JSONObject>()
                 {
                     @Override
