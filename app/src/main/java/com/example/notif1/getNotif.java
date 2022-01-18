@@ -73,16 +73,21 @@ public class getNotif extends NotificationListenerService {
 //        queue.add(postRequest);
 
 
-        final String url = " http://54.251.227.51:5000/aiTest/";
+        final String url = " http://54.251.227.51:5000/v1/mc/predict";
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("content_id", "c6eEXZ");
+        params.put("download_from", "S3");
+        params.put("lang", "BAHASA");
+        params.put("metaDataPath", ".txt");
 
         RequestQueue queue = Volley.newRequestQueue(getNotif.this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest getRequest = new JsonObjectRequest(url, new JSONObject(params),
                 new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        Log.i("berhasil", String.valueOf(response));
+                        Log.i("mantab9", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener()
