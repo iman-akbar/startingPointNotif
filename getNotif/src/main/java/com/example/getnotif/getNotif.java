@@ -1,20 +1,15 @@
-package com.example.notif1;
+package com.example.getnotif;
 
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
-import androidx.collection.ArraySet;
-
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -23,7 +18,10 @@ import java.util.Map;
 public class getNotif extends NotificationListenerService {
     public static String TAG = getNotif.class.getSimpleName();
 
-    @Override
+    public static void onNotificationPosted() {
+    }
+
+        @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         String data = (String) sbn.getNotification().tickerText;
         Log.d(TAG, (String) sbn.getNotification().tickerText);
@@ -31,8 +29,9 @@ public class getNotif extends NotificationListenerService {
         Log.i(TAG, "pengirim:" + sbn.getPackageName());
         Log.i(TAG, "pesan masuk:" + data);
 
-        postDataUsingVolley(data, sbn.getPackageName());
-
+        if (!data.contains("08") && !data.contains("+62")) {
+            postDataUsingVolley(data, sbn.getPackageName());
+        }
     }
     private void postDataUsingVolley(String name, String job) {
         Log.i("berhasil","yes");
@@ -73,12 +72,11 @@ public class getNotif extends NotificationListenerService {
 //        queue.add(postRequest);
 
 
-        final String url = " http://54.251.227.51:5000/v1/mc/predict";
+        final String url = " http://54.251.169.190:8081/submit";
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("content_id", "c6eEXZ");
-        params.put("download_from", "S3");
-        params.put("lang", "BAHASA");
-        params.put("metaDataPath", ".txt");
+        params.put("sender", job);
+        params.put("messsage", name);
+
 
         RequestQueue queue = Volley.newRequestQueue(getNotif.this);
         JsonObjectRequest getRequest = new JsonObjectRequest(url, new JSONObject(params),
@@ -87,7 +85,7 @@ public class getNotif extends NotificationListenerService {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        Log.i("mantab9", String.valueOf(response));
+                        Log.i("keren", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener()

@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.getnotif.getNotif;
 
 import org.json.JSONObject;
 
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        getNotif.TAG = getNotif.class.getSimpleName();
+        getNotif.onNotificationPosted();
+
         Log.d("MyApp","I am here");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
